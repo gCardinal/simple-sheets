@@ -1,10 +1,19 @@
-import {defineConfig} from 'vite'
-import react from '@vitejs/plugin-react-swc'
-import tsconfigPaths from 'vite-tsconfig-paths';
-import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import tsconfigPaths from "vite-tsconfig-paths";
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 
-// https://vite.dev/config/
+const isTest = process.env.NODE_ENV === "test";
+
 export default defineConfig({
-    root: "./apps/simple-sheets",
-    plugins: [react(), tsconfigPaths(), TanStackRouterVite()],
-})
+  plugins: [
+    react(),
+    tsconfigPaths(),
+    isTest
+      ? undefined
+      : TanStackRouterVite({
+          routesDirectory: "./src/app/routes",
+          generatedRouteTree: "./src/app/routeTree.gen.ts",
+        }),
+  ].filter(Boolean),
+});
