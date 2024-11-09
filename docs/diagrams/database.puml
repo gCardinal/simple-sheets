@@ -1,0 +1,26 @@
+@startuml
+
+/'
+
+'/
+
+object characters {
+    id: int
+    name: string
+    picture: string
+    sheet_id: int
+}
+
+object character_sheets {
+    id: int
+    type: string
+    /'
+    data is stringified JSON, sheet "drivers" are responsible
+    for parsing and validating the data.
+    '/
+    data: string
+}
+
+characters *-- character_sheets
+
+@enduml

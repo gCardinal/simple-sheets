@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react-swc";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
@@ -16,4 +16,7 @@ export default defineConfig({
           generatedRouteTree: "./src/app/routeTree.gen.ts",
         }),
   ].filter(Boolean),
+  test: {
+    environment: "happy-dom",
+  },
 });
