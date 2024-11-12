@@ -1,29 +1,56 @@
 import { useStorageContext } from "./use-storage-context";
-import { useQuery } from "@tanstack/react-query";
-import { assert, Schema } from "@libs/validation";
-import { useMemo } from "react";
-import { storageKeyPrefix } from "../constants";
+import { assert, type Schema } from "@libs/validation";
+import { useEffect, useState } from "react";
+import { StorageReactException } from "@libs/storage-react/storage-react.exception.ts";
 
-type GetFromStorageResult<T> =
-  | { value: T; isLoading: false }
-  | { value: undefined; isLoading: true };
+type GetFromStorageResult<T> = {
+  value?: T;
+  isFetching: boolean;
+  error: Error | null;
+};
 
 export const useGetFromStorage = <T>(
   key: string,
   schema: Schema<T>,
 ): GetFromStorageResult<T> => {
-  const { storage } = useStorageContext();
-  const { data, ...meta } = useQuery({
-    queryKey: [`${storageKeyPrefix}-get-${key}`],
-    queryFn: () => storage.getItem(key),
+  const [result, setResult] = useState<GetFromStorageResult<T>>({
+    value: undefined,
+    isFetching: true,
+    error: null,
   });
+  const { storage } = useStorageContext();
 
-  return useMemo(() => {
-    if (data && !meta.isLoading) {
-      assert(data, schema);
-      return { value: data, ...meta, isLoading: false };
-    }
+  useEffect(() => {
+    const asyncEffect = async () => {
+      try {
+        const data = await storage.getItem(key);
 
-    return { value: undefined, ...meta, isLoading: true };
-  }, [data, schema, meta]);
+        if (!data) {
+          setResult({
+            value: undefined,
+            isFetching: false,
+            error: StorageReactException.noValueFoundInStorage(key),
+          });
+          return;
+        }
+
+        assert(data, schema);
+
+        setResult({ value: data, isFetching: false, error: null });
+      } catch (error) {
+        setResult({
+          value: undefined,
+          isFetching: false,
+          error:
+            error instanceof Error
+              ? error
+              : StorageReactException.unknownError(error),
+        });
+      }
+    };
+
+    void asyncEffect();
+  }, [key, schema, storage]);
+
+  return result;
 };

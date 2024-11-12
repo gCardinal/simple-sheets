@@ -1,14 +1,6 @@
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
-import { config } from "@libs/config";
-import { lazy, Suspense } from "react";
-
-const TanStackRouterDevtools = config.isProd
-  ? () => null
-  : lazy(() =>
-      import("@tanstack/router-devtools").then((res) => ({
-        default: res.TanStackRouterDevtools,
-      })),
-    );
+import { Link, Outlet } from "@tanstack/react-router";
+import { Suspense } from "react";
+import { createRootRoute, TanStackRouterDevtools } from "../routing";
 
 export const Route = createRootRoute({
   component: () => (

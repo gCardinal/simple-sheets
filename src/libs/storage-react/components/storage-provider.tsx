@@ -1,6 +1,6 @@
-import { FC, PropsWithChildren } from "react";
+import { type FC, type PropsWithChildren } from "react";
 import { storageContext } from "../context";
-import { Storage } from "@libs/storage";
+import { type Storage } from "@libs/storage";
 
 export interface StorageProviderProps extends PropsWithChildren {
   storage: Storage;

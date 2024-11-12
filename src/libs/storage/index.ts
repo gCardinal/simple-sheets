@@ -1,16 +1,17 @@
 import localforage from "localforage";
+import { inMemoryStorageDriver } from "./drivers";
 
-/**
- * Basic abstraction over the localforage library.
- */
 export type Storage = Omit<
   LocalForage,
   "WEBSQL" | "INDEXEDDB" | "LOCALSTORAGE"
 >;
 
-export const storage: Storage = localforage;
+export const createStorage = localforage.createInstance;
 export const drivers = {
   INDEXEDDB: localforage.INDEXEDDB,
   LOCALSTORAGE: localforage.LOCALSTORAGE,
   WEBSQL: localforage.WEBSQL,
+  IN_MEMORY: inMemoryStorageDriver._driver,
 };
+
+void localforage.defineDriver(inMemoryStorageDriver);

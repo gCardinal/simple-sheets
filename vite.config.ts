@@ -13,10 +13,11 @@ export default defineConfig({
       ? undefined
       : TanStackRouterVite({
           routesDirectory: "./src/app/routes",
-          generatedRouteTree: "./src/app/routeTree.gen.ts",
+          generatedRouteTree: "./src/app/routing/routeTree.gen.ts",
         }),
   ].filter(Boolean),
   test: {
     environment: "happy-dom",
+    setupFiles: ["./vitest.setup.ts"],
   },
 });

@@ -1,7 +1,3 @@
-/**
- * Tiny abstraction layer for superstruct
- */
-import { Struct } from "superstruct";
-
-export { string, array, assert, object } from "superstruct";
-export type Schema<T = unknown, S = unknown> = Struct<T, S>;
+export { string, array, assert, object, validate } from "superstruct";
+export * from "./schema";
+export * from "./validate";
