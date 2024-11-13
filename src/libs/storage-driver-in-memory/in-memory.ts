@@ -1,4 +1,5 @@
 import { getSerializer } from "localforage";
+import { IN_MEMORY_DRIVER_NAME } from "@libs/storage-driver-in-memory/constants.ts";
 
 interface DriverProperties {
   storage: Map<string, string>;
@@ -6,7 +7,7 @@ interface DriverProperties {
 }
 
 export const inMemoryStorageDriver: LocalForageDriver & DriverProperties = {
-  _driver: "in-memory-driver",
+  _driver: IN_MEMORY_DRIVER_NAME,
   storage: new Map(),
   serializer: undefined,
   _initStorage: async function () {

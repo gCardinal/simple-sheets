@@ -1,5 +1,4 @@
 import localforage from "localforage";
-import { inMemoryStorageDriver } from "./drivers";
 
 export type Storage = Omit<
   LocalForage,
@@ -11,7 +10,4 @@ export const drivers = {
   INDEXEDDB: localforage.INDEXEDDB,
   LOCALSTORAGE: localforage.LOCALSTORAGE,
   WEBSQL: localforage.WEBSQL,
-  IN_MEMORY: inMemoryStorageDriver._driver,
 };
-
-void localforage.defineDriver(inMemoryStorageDriver);

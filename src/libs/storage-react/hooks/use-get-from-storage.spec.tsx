@@ -2,11 +2,12 @@ import { afterEach, beforeEach, describe, expect, test } from "vitest";
 import { type FC, type PropsWithChildren } from "react";
 import { cleanup, render } from "@testing-library/react";
 import { byRole } from "testing-library-selector";
-import { createStorage, drivers, type Storage } from "@libs/storage";
+import { createStorage, type Storage } from "@libs/storage";
 import { useGetFromStorage } from "./use-get-from-storage";
 import { StorageProvider } from "../components";
 import { waitFor } from "@testing-library/dom";
 import { StorageReactException } from "../storage-react.exception";
+import { inMemoryStorageDriver } from "@libs/storage-driver-in-memory";
 
 describe("useGetFromStorage()", () => {
   let storage: Storage;
@@ -48,9 +49,10 @@ describe("useGetFromStorage()", () => {
   };
 
   beforeEach(() => {
-    storage = createStorage({
-      driver: drivers.IN_MEMORY,
-    });
+    storage = createStorage({});
+
+    storage.defineDriver(inMemoryStorageDriver);
+    storage.setDriver(inMemoryStorageDriver._driver);
   });
 
   afterEach(async () => {

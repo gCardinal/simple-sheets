@@ -1,13 +1,15 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import { createStorage, drivers, type Storage } from "../index";
+import { createStorage, type Storage } from "@libs/storage";
+import { inMemoryStorageDriver } from "./in-memory";
 
 describe("storage driver: in-memory", () => {
   let storage: Storage;
 
   beforeEach(() => {
-    storage = createStorage({
-      driver: drivers.IN_MEMORY,
-    });
+    storage = createStorage({});
+
+    storage.defineDriver(inMemoryStorageDriver);
+    storage.setDriver(inMemoryStorageDriver._driver);
   });
 
   test("should set and get value from storage", async () => {
