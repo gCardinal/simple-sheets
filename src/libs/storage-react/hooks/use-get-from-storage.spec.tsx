@@ -5,7 +5,6 @@ import { byRole } from "testing-library-selector";
 import { createStorage, drivers, type Storage } from "@libs/storage";
 import { useGetFromStorage } from "./use-get-from-storage";
 import { StorageProvider } from "../components";
-import { string } from "superstruct";
 import { waitFor } from "@testing-library/dom";
 import { StorageReactException } from "../storage-react.exception";
 
@@ -24,7 +23,7 @@ describe("useGetFromStorage()", () => {
   );
 
   const TestComponent: FC = () => {
-    const { value, isFetching, error } = useGetFromStorage("key", string());
+    const { value, isFetching, error } = useGetFromStorage("key");
 
     if (isFetching) {
       return <div role="progressbar">loading...</div>;
@@ -34,7 +33,7 @@ describe("useGetFromStorage()", () => {
       <div>
         <label>
           value
-          <input type="text" name="value" value={value} readOnly />
+          <input type="text" name="value" value={value as string} readOnly />
         </label>
         <label>
           type
@@ -72,18 +71,6 @@ describe("useGetFromStorage()", () => {
     );
 
     expect(ui.valueInput.get()).toHaveValue("preset-value");
-  });
-
-  test("should return validation error when schema is not satisfied", async () => {
-    await storage.setItem("key", 120);
-
-    render(<TestComponent />, { wrapper: Wrapper });
-
-    await waitFor(() =>
-      expect(ui.loadingIndicator.query()).not.toBeInTheDocument(),
-    );
-
-    expect(ui.errorTypeInput.get()).toHaveValue("StructError");
   });
 
   test("should leave value undefined when storage has nothing and provide and error to explain why", async () => {

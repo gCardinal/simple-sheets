@@ -1,19 +1,15 @@
 import { useStorageContext } from "./use-storage-context";
-import { assert, type Schema } from "@libs/validation";
 import { useEffect, useState } from "react";
-import { StorageReactException } from "@libs/storage-react/storage-react.exception.ts";
+import { StorageReactException } from "../storage-react.exception";
 
-type GetFromStorageResult<T> = {
-  value?: T;
+type GetFromStorageResult = {
+  value?: unknown;
   isFetching: boolean;
   error: Error | null;
 };
 
-export const useGetFromStorage = <T>(
-  key: string,
-  schema: Schema<T>,
-): GetFromStorageResult<T> => {
-  const [result, setResult] = useState<GetFromStorageResult<T>>({
+export const useGetFromStorage = (key: string): GetFromStorageResult => {
+  const [result, setResult] = useState<GetFromStorageResult>({
     value: undefined,
     isFetching: true,
     error: null,
@@ -34,8 +30,6 @@ export const useGetFromStorage = <T>(
           return;
         }
 
-        assert(data, schema);
-
         setResult({ value: data, isFetching: false, error: null });
       } catch (error) {
         setResult({
@@ -50,7 +44,7 @@ export const useGetFromStorage = <T>(
     };
 
     void asyncEffect();
-  }, [key, schema, storage]);
+  }, [key, storage]);
 
   return result;
 };

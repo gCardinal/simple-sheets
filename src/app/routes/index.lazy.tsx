@@ -15,7 +15,7 @@ export const Route = createLazyFileRoute("/")({
 });
 
 function Index() {
-  const characters = RouteApi.useLoaderData();
+  const { characters, systems } = RouteApi.useLoaderData();
   const storage = useStorage();
   const navigate = useNavigate();
 
@@ -27,6 +27,9 @@ function Index() {
 
   return (
     <ul>
+      {systems.map(({ name, slug }) => (
+        <li key={slug}>{name}</li>
+      ))}
       {characters.map(({ id, name }) => (
         <li key={id}>
           <Link to={`/character/${id}`}>{name}</Link>

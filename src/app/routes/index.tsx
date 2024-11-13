@@ -2,9 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { assert, object, string } from "@libs/validation";
 
 export const Route = createFileRoute("/")({
-  loader: async ({
-    context: { storage },
-  }): Promise<Array<{ id: string; name: string }>> => {
+  loader: async ({ context: { storage, registeredSystems } }) => {
     const keys = await storage.keys();
     const characters: Array<{ id: string; name: string }> = [];
 
@@ -14,6 +12,6 @@ export const Route = createFileRoute("/")({
       characters.push(character);
     }
 
-    return characters;
+    return { characters, systems: registeredSystems };
   },
 });
