@@ -1,6 +1,6 @@
-import { type RpgSystem } from "@libs/character-sheet";
+import { type System } from "@libs/character-sheet";
 
-export const system: RpgSystem = {
+export const system: System = {
   name: "Darkened Skies",
   slug: "darkened-skies",
   version: 1,

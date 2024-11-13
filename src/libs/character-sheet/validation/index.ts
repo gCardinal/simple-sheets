@@ -1,1 +1,1 @@
-export * from "./minimal-character-schema";
+export * from "./character-sheet-schema.ts";

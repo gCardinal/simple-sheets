@@ -1,13 +1,13 @@
-import { type RpgSystem } from "@libs/character-sheet";
+import { type SystemRegistrar } from "@libs/character-sheet";
 
-export const register = () => {
+export const register: SystemRegistrar = () => {
   console.log("Darkened Skies system registered");
 
   return {
     name: "Darkened Skies",
     slug: "darkened-skies",
     version: 1,
-    loader: async (): Promise<RpgSystem> => {
+    loadSystem: async () => {
       const { system } = await import("../index");
       return system;
     },

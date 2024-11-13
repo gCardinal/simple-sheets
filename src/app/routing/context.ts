@@ -1,7 +1,7 @@
 import type { Storage } from "@libs/storage";
-import { type SystemRegister } from "@libs/character-sheet/system-register.ts";
+import { type SystemRegistration } from "@libs/character-sheet";
 
 export interface RouterContext {
   storage: Storage;
-  registeredSystems: SystemRegister[];
+  registeredSystems: SystemRegistration[];
 }
