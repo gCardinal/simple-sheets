@@ -3,7 +3,6 @@ import { getCharacterSheetById } from "@libs/character-sheet";
 import { getSystemForCharacterSheet } from "@libs/character-sheet/api/get-system-for-character-sheet.ts";
 
 export const Route = createFileRoute("/character/$characterId")({
-  component: CharacterId,
   loader: async ({
     context: { storage, registeredSystems },
     params: { characterId },
@@ -17,9 +16,3 @@ export const Route = createFileRoute("/character/$characterId")({
     return { character, system };
   },
 });
-
-function CharacterId() {
-  const { character, system } = Route.useLoaderData();
-
-  return system.renderCharacterSheet(character);
-}
