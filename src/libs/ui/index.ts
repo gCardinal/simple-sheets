@@ -1,5 +1,11 @@
-import "@mantine/core/styles/global.css";
-import "@mantine/core/styles/UnstyledButton.css";
-import "@mantine/core/styles/Button.css";
+import "@mantine/core/styles.css";
 
-export { Button, MantineProvider as ThemeProvider } from "@mantine/core";
+export {
+  Button,
+  Modal,
+  TextInput,
+  Select,
+  Group,
+  Stack,
+  MantineProvider as ThemeProvider,
+} from "@mantine/core";

@@ -1,7 +1,7 @@
 import { type Storage } from "@libs/storage";
 import { assert } from "@libs/validation";
-import { characterSheetSchema } from "./validation";
-import { type CharacterSheet } from "./models";
+import { characterSheetSchema } from "../validation";
+import { type CharacterSheet } from "../models";
 
 export const getAllCharacterSheets = async (
   storage: Storage,
