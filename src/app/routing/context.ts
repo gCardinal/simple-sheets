@@ -1,7 +1,7 @@
 import type { Storage } from "@libs/storage";
-import { type SystemRegistration } from "@libs/character-sheet";
+import { type CharacterSheetClient } from "@libs/character-sheet/create-character-sheet-client.ts";
 
 export interface RouterContext {
   storage: Storage;
-  registeredSystems: SystemRegistration[];
+  characterSheetClient: CharacterSheetClient;
 }

@@ -4,10 +4,8 @@ import {
   Link,
   useNavigate,
 } from "@tanstack/react-router";
-import { useStorage } from "@libs/storage-react";
 import { Button, Group, Modal, Select, Stack, TextInput } from "@libs/ui";
 import { type FormEvent, useState } from "react";
-import { createNewCharacterSheet } from "@libs/character-sheet";
 
 const RouteApi = getRouteApi("/");
 
@@ -16,8 +14,7 @@ export const Route = createLazyFileRoute("/")({
 });
 
 function Index() {
-  const { characters, systems } = RouteApi.useLoaderData();
-  const storage = useStorage();
+  const { characters, characterSheetClient } = RouteApi.useLoaderData();
   const navigate = useNavigate();
   const [isCreateNewCharacterModalOpen, setIsCreateNewCharacterModalOpen] =
     useState(false);
@@ -30,7 +27,11 @@ function Index() {
     const name = formData.get("name") as string;
     const system = formData.get("system") as string;
 
-    const sheet = await createNewCharacterSheet(name, system, storage, systems);
+    // const sheet = await createNewCharacterSheet(name, system, storage, systems);
+    const sheet = await characterSheetClient.createNewCharacterSheet(
+      name,
+      system,
+    );
 
     await navigate({ to: `/character/${sheet.id}` });
   };
@@ -61,10 +62,12 @@ function Index() {
             <Select
               name="system"
               label="System"
-              data={systems.map(({ name, slug }) => ({
-                value: slug,
-                label: name,
-              }))}
+              data={characterSheetClient
+                .getRegisteredSystems()
+                .map(({ name, slug }) => ({
+                  value: slug,
+                  label: name,
+                }))}
               searchable
             />
             <Group justify="flex-end">

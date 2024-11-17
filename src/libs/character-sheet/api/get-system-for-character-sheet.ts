@@ -3,6 +3,7 @@ import {
   type System,
   type SystemRegistration,
 } from "../models";
+import { CharacterSheetException } from "../character-sheet.exception";
 
 export const getSystemForCharacterSheet = async (
   characterSheet: CharacterSheet,
@@ -13,9 +14,7 @@ export const getSystemForCharacterSheet = async (
   );
 
   if (!registeredSystem) {
-    throw new Error(
-      `System for character sheet "${JSON.stringify(characterSheet)}" not found.`,
-    );
+    throw CharacterSheetException.systemDoesNotExistForSheet(characterSheet);
   }
 
   return registeredSystem.loadSystem();

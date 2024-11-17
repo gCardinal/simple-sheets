@@ -1,9 +1,9 @@
 import { type Storage } from "@libs/storage";
 import { assert } from "@libs/validation";
 import { characterSheetSchema } from "../validation";
-import { type CharacterSheet } from "../models";
-import { type SystemRegistration } from "@libs/character-sheet";
+import { type CharacterSheet, type SystemRegistration } from "../models";
 import { nanoid } from "nanoid";
+import { CharacterSheetException } from "../character-sheet.exception";
 
 export const createNewCharacterSheet = async (
   characterName: string,
@@ -14,7 +14,7 @@ export const createNewCharacterSheet = async (
   const system = registeredSystems.find((system) => system.slug === systemSlug);
 
   if (!system) {
-    throw new Error(`System with slug "${systemSlug}" not found`);
+    throw CharacterSheetException.systemNotFound(systemSlug);
   }
 
   const character: Partial<CharacterSheet> = {

@@ -11,5 +11,4 @@ export interface System {
   // having to load the system's code.
   name: string;
   runMigrations: (character: CharacterSheet, storage: Storage) => Promise<void>;
-  renderCharacterSheet: (character: CharacterSheet) => unknown;
 }
