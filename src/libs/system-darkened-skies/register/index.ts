@@ -1,6 +1,6 @@
-import { type SystemRegistrar } from "@libs/character-sheet";
+import { type SystemRegistration } from "@libs/character-sheet";
 
-export const register: SystemRegistrar = () => {
+export const register = (): SystemRegistration => {
   console.log("Darkened Skies system registered");
 
   return {

@@ -1,6 +1,8 @@
-import { type Storage } from "@libs/storage";
-import { type CharacterSheet } from "./character-sheet";
-
+/**
+ * A system is the object used to define a system for character sheets. This
+ * system contains static information about the system as well as "global"
+ * utilities such as migrations to run on characters when loaded.
+ */
 export interface System {
   // Slug name of the system; used to fetch the system.
   slug: string;
@@ -10,5 +12,6 @@ export interface System {
   // Pretty name of the system. Used for display purposes, without
   // having to load the system's code.
   name: string;
-  runMigrations: (character: CharacterSheet, storage: Storage) => Promise<void>;
+  // @enable once used
+  // runMigrations: (character: CharacterSheet, storage: Storage) => Promise<void>;
 }

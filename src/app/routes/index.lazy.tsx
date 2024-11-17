@@ -27,7 +27,6 @@ function Index() {
     const name = formData.get("name") as string;
     const system = formData.get("system") as string;
 
-    // const sheet = await createNewCharacterSheet(name, system, storage, systems);
     const sheet = await characterSheetClient.createNewCharacterSheet(
       name,
       system,

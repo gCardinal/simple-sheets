@@ -1,4 +1,4 @@
-import type { RendererRegistration } from "@libs/character-sheet/models/renderer-registration.ts";
+import type { RendererRegistration } from "@libs/character-sheet";
 
 export const register = (): RendererRegistration => {
   console.log("Darkened Skies renderer registered");
