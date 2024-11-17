@@ -8,7 +8,8 @@ export const Route = createFileRoute("/character/$characterId")({
     const character =
       await characterSheetClient.getCharacterSheetById(characterId);
     const renderer = await characterSheetClient.getRendererForSheet(character);
+    const system = await characterSheetClient.getSystemForSheet(character);
 
-    return { character, renderer };
+    return { character, renderer, system };
   },
 });

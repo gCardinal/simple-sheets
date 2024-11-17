@@ -1,1 +1,2 @@
-export * from "./character-sheet-schema.ts";
+export * from "./schemas/character-sheet-schema";
+export * from "./validate-client-registrations";

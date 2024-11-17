@@ -7,7 +7,7 @@ export const Route = createLazyFileRoute("/character/$characterId")({
 });
 
 function CharacterId() {
-  const { character, renderer } = RouteApi.useLoaderData();
+  const { character, renderer, system } = RouteApi.useLoaderData();
 
-  return renderer.render(character);
+  return renderer.render(character, system);
 }

@@ -1,4 +1,5 @@
 import { type CharacterSheet } from "./character-sheet";
+import { type System } from "./system";
 
 /**
  * A renderer is the object used to render a character sheet. It contains
@@ -12,5 +13,5 @@ import { type CharacterSheet } from "./character-sheet";
  */
 export interface Renderer {
   slug: string;
-  render: (character: CharacterSheet) => unknown;
+  render: (character: CharacterSheet, system: System) => unknown;
 }

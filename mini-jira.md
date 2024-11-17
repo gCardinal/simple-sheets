@@ -1,0 +1,9 @@
+- actually test stuff...
+- renderer should validate the received system is the correct one before rendering
+- sheet client should load the system and pass it to the renderer before returning it
+- use form lib for character create form
+- extract components from pages
+- nice ui (ish)
+- add readme to all libs
+- update top-level readme
+- add project explanation in /docs
