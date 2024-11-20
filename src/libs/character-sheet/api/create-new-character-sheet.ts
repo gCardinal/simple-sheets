@@ -22,6 +22,7 @@ export const createNewCharacterSheet = async (
     name: characterName,
     system: {
       name: system.name,
+      shortName: system.shortName,
       slug: system.slug,
       version: system.version,
     },

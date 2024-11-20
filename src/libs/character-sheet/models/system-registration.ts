@@ -5,6 +5,6 @@ import { type System } from "./system";
  * for lazy loading of the whole system when they are needed.
  */
 export interface SystemRegistration
-  extends Pick<System, "slug" | "name" | "version"> {
+  extends Pick<System, "slug" | "name" | "version" | "shortName"> {
   loadSystem: () => Promise<System>;
 }

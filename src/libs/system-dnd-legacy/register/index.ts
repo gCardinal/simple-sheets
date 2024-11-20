@@ -5,6 +5,7 @@ export const register = (): SystemRegistration => {
 
   return {
     name: "D&D 5e (Legacy)",
+    shortName: "D&D 5e (L)",
     slug: "dnd-legacy",
     version: 1,
     loadSystem: async () => {

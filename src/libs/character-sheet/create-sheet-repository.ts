@@ -16,19 +16,18 @@ export const createSheetRepository = ({
   storage,
 }: SheetRepositoryOptions) => {
   return {
-    getAllCharacterSheets: () => getAllCharacterSheets(storage),
-    getCharacterSheetById: async (id: string) =>
-      getCharacterSheetById(id, storage),
-    createNewCharacterSheet: async (
-      characterName: string,
-      systemSlug: string,
-    ) =>
+    getAll: () => getAllCharacterSheets(storage),
+    getById: async (id: string) => getCharacterSheetById(id, storage),
+    create: async (characterName: string, systemSlug: string) =>
       createNewCharacterSheet(
         characterName,
         systemSlug,
         storage,
         registrations.map(([system]) => system),
       ),
+    delete: async (id: string) => {
+      await storage.removeItem(id);
+    },
   };
 };
 

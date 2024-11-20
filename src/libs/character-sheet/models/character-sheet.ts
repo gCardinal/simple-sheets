@@ -7,5 +7,5 @@ import { type System } from "./system";
 export interface CharacterSheet {
   id: string;
   name: string;
-  system: Pick<System, "slug" | "name" | "version">;
+  system: Pick<System, "slug" | "name" | "version" | "shortName">;
 }

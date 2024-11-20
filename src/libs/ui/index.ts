@@ -7,5 +7,6 @@ export {
   Select,
   Group,
   Stack,
+  Badge,
   MantineProvider as ThemeProvider,
 } from "@mantine/core";

@@ -7,3 +7,4 @@
 - add readme to all libs
 - update top-level readme
 - add project explanation in /docs
+- figure out icons to use

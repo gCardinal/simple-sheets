@@ -21,4 +21,8 @@ export interface System {
    * having to load the system's code.
    */
   name: string;
+  /**
+   * Short name for the system. Pathfinder -> PF, Dungeons & Dragons 5e -> D&D 5e, etc.
+   */
+  shortName: string;
 }

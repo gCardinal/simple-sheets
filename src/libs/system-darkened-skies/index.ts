@@ -6,6 +6,7 @@ export * from "./system";
 
 export const system: DarkenedSkiesSystem = {
   name: "Darkened Skies",
+  shortName: "D&D:DS",
   slug: "darkened-skies",
   version: 1,
   conditions: [

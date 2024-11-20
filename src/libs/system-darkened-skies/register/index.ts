@@ -5,6 +5,7 @@ export const register = (): SystemRegistration => {
 
   return {
     name: "Darkened Skies",
+    shortName: "D&D:DS",
     slug: "darkened-skies",
     version: 1,
     loadSystem: async () => {

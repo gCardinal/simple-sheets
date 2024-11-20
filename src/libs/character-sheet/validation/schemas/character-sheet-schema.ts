@@ -8,5 +8,6 @@ export const characterSheetSchema: Describe<CharacterSheet> = object({
     slug: string(),
     version: number(),
     name: string(),
+    shortName: string(),
   }),
 });
