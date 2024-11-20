@@ -1,13 +1,19 @@
 import { routeTree } from "./routeTree.gen";
 import { createRouter } from "@tanstack/react-router";
 import { storage } from "../storage";
-import { characterSheetClient } from "../character-sheet-client.ts";
+import {
+  rendererLoader,
+  sheetRepository,
+  systemLoader,
+} from "../character-sheet";
 
 export const router = createRouter({
   routeTree,
   context: {
     storage,
-    characterSheetClient,
+    sheetRepository,
+    systemLoader,
+    rendererLoader,
   },
 });
 

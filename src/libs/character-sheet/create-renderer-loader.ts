@@ -1,11 +1,10 @@
-import { type Renderer } from "./models";
-import type { CharacterSheetClientOptions } from "./create-character-sheet-client";
+import { type Renderer, type SystemAndRendererRegistrationMap } from "./models";
 
 /**
  * Lazy loads renderers and caches them in memory.
  */
-export const createRendererPool = (
-  registrations: CharacterSheetClientOptions["registrations"],
+export const createRendererLoader = (
+  registrations: SystemAndRendererRegistrationMap,
 ) => {
   const loadedRenderers = new Map<string, Renderer>();
 
@@ -16,22 +15,17 @@ export const createRendererPool = (
         return loadedRenderer;
       }
 
-      let renderer: Renderer | undefined;
-
       for (const [, rendererRegistration] of registrations) {
         if (slug === rendererRegistration.system) {
-          renderer = await rendererRegistration.loadRenderer();
+          const renderer = await rendererRegistration.loadRenderer();
           loadedRenderers.set(renderer.slug, renderer);
+          return renderer;
         }
       }
 
-      if (!renderer) {
-        throw new Error("nope");
-      }
-
-      return renderer;
+      throw new Error("nope");
     },
   };
 };
 
-export type RendererPool = ReturnType<typeof createRendererPool>;
+export type RendererLoader = ReturnType<typeof createRendererLoader>;

@@ -14,7 +14,8 @@ export const Route = createLazyFileRoute("/")({
 });
 
 function Index() {
-  const { characters, characterSheetClient } = RouteApi.useLoaderData();
+  const { characters, sheetRepository, systemLoader } =
+    RouteApi.useLoaderData();
   const navigate = useNavigate();
   const [isCreateNewCharacterModalOpen, setIsCreateNewCharacterModalOpen] =
     useState(false);
@@ -27,10 +28,7 @@ function Index() {
     const name = formData.get("name") as string;
     const system = formData.get("system") as string;
 
-    const sheet = await characterSheetClient.createNewCharacterSheet(
-      name,
-      system,
-    );
+    const sheet = await sheetRepository.createNewCharacterSheet(name, system);
 
     await navigate({ to: `/character/${sheet.id}` });
   };
@@ -61,7 +59,7 @@ function Index() {
             <Select
               name="system"
               label="System"
-              data={characterSheetClient
+              data={systemLoader
                 .getRegisteredSystems()
                 .map(({ name, slug }) => ({
                   value: slug,

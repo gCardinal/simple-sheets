@@ -2,13 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/character/$characterId")({
   loader: async ({
-    context: { characterSheetClient },
+    context: { sheetRepository, systemLoader, rendererLoader },
     params: { characterId },
   }) => {
-    const character =
-      await characterSheetClient.getCharacterSheetById(characterId);
-    const renderer = await characterSheetClient.getRendererForSheet(character);
-    const system = await characterSheetClient.getSystemForSheet(character);
+    const character = await sheetRepository.getCharacterSheetById(characterId);
+    const renderer = await rendererLoader.get(character.system.slug);
+    const system = await systemLoader.get(character.system.slug);
 
     return { character, renderer, system };
   },
