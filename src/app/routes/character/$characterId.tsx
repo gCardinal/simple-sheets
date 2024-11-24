@@ -6,8 +6,8 @@ export const Route = createFileRoute("/character/$characterId")({
     params: { characterId },
   }) => {
     const character = await sheetRepository.getById(characterId);
-    const renderer = await rendererLoader.get(character.system.slug);
-    const system = await systemLoader.get(character.system.slug);
+    const renderer = await rendererLoader.load(character.systemSlug);
+    const system = await systemLoader.load(character.systemSlug);
 
     return { character, renderer, system };
   },

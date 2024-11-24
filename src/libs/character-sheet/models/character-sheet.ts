@@ -1,4 +1,4 @@
-import { number, object, string } from "@libs/validation";
+import { object, string } from "@libs/validation";
 import { type Infer } from "superstruct";
 
 /**
@@ -8,12 +8,7 @@ import { type Infer } from "superstruct";
 export const CharacterSheet = object({
   id: string(),
   name: string(),
-  system: object({
-    slug: string(),
-    version: number(),
-    name: string(),
-    shortName: string(),
-  }),
+  systemSlug: string(),
 });
 
 export type CharacterSheet = Infer<typeof CharacterSheet>;

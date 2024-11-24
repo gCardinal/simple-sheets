@@ -29,15 +29,14 @@ export const DndLegacyCharacterSheet = assign(
       record(
         string(),
         object({
-          name: string(),
           proficiency: boolean(),
           score: number(),
         }),
       ),
       skills.reduce(
-        (acc, { shortName, name }) => ({
+        (acc, { shortName }) => ({
           ...acc,
-          [shortName]: { name, proficiency: false, score: 0 },
+          [shortName]: { proficiency: false, score: 0 },
         }),
         {},
       ),

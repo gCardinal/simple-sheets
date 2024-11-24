@@ -20,12 +20,7 @@ export const createNewCharacterSheet = async (
   const character: Partial<CharacterSheet> = {
     id: nanoid(),
     name: characterName,
-    system: {
-      name: system.name,
-      shortName: system.shortName,
-      slug: system.slug,
-      version: system.version,
-    },
+    systemSlug: system.slug,
   };
 
   assert(character, CharacterSheet);

@@ -51,11 +51,11 @@ function Index() {
   return (
     <>
       <ul>
-        {characters.map(({ id, name, system: { shortName } }) => (
+        {characters.map(({ id, name, systemSlug }) => (
           <li key={id}>
             <Link to={`/character/${id}`}>{name}</Link>
             <Badge variant="outline" color="blue">
-              {shortName}
+              {systemLoader.getRegisteredSystem(systemSlug).name}
             </Badge>
             <Button
               variant="subtle"

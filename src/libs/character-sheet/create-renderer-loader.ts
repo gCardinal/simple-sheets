@@ -9,7 +9,7 @@ export const createRendererLoader = (
   const loadedRenderers = new Map<string, Renderer>();
 
   return {
-    get: async (slug: string): Promise<Renderer> => {
+    load: async (slug: string): Promise<Renderer> => {
       const loadedRenderer = loadedRenderers.get(slug);
       if (loadedRenderer) {
         return loadedRenderer;

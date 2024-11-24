@@ -10,7 +10,7 @@ export const createSystemLoader = (
   const loadedSystems = new Map<string, System>();
 
   return {
-    get: async (slug: string): Promise<System> => {
+    load: async (slug: string): Promise<System> => {
       const loadedSystem = loadedSystems.get(slug);
 
       if (loadedSystem) {
@@ -27,11 +27,19 @@ export const createSystemLoader = (
 
       throw new Error("nope");
     },
-    getRegisteredSystems: (): Pick<System, "slug" | "name">[] =>
-      registrations.map(([system]) => ({
-        name: system.name,
-        slug: system.slug,
-      })),
+    getRegisteredSystems: (): System[] =>
+      registrations.map(([system]) => system),
+    getRegisteredSystem: (slug: string): System => {
+      const registration = registrations.find(
+        ([system]) => system.slug === slug,
+      );
+
+      if (!registration) {
+        throw new Error("System not found");
+      }
+
+      return registration[0];
+    },
   };
 };
 

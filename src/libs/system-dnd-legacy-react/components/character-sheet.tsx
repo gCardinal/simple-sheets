@@ -11,8 +11,11 @@ export interface CharacterSheetProps {
 
 export const CharacterSheet: FC<CharacterSheetProps> = ({ sheet }) => {
   return (
-    <p>
-      {sheet.name}, {sheet.classAndLevel} (Legacy)
-    </p>
+    <div>
+      <p>
+        {sheet.name}, {sheet.classAndLevel} (Legacy)
+      </p>
+      <pre>{JSON.stringify(sheet, null, 2)}</pre>
+    </div>
   );
 };
