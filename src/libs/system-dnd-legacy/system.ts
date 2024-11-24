@@ -1,6 +1,6 @@
 import { type DndLegacySystem } from "./types";
 import { conditions } from "./conditions";
-import { abilityScores } from "./ability-scores";
+import { abilities } from "./abilities.ts";
 import { skills } from "./skills";
 
 export const system: DndLegacySystem = {
@@ -9,6 +9,6 @@ export const system: DndLegacySystem = {
   slug: "dnd-legacy",
   version: 1,
   conditions,
-  abilityScores,
+  abilityScores: abilities,
   skills,
 };

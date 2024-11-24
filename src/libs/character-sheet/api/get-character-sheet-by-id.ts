@@ -1,7 +1,6 @@
 import { type Storage } from "@libs/storage";
 import { assert } from "@libs/validation";
-import { characterSheetSchema } from "../validation";
-import { type CharacterSheet } from "../models";
+import { CharacterSheet } from "../models";
 import { CharacterSheetException } from "../character-sheet.exception";
 
 export const getCharacterSheetById = async (
@@ -14,7 +13,7 @@ export const getCharacterSheetById = async (
     throw CharacterSheetException.characterSheetNotFound(id);
   }
 
-  assert(character, characterSheetSchema);
+  assert(character, CharacterSheet);
 
   return character;
 };

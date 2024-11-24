@@ -1,4 +1,5 @@
-import { type System, type SystemAndRendererRegistrationMap } from "./models";
+import { type System } from "./models";
+import { type SystemAndRendererRegistrationMap } from "./types";
 
 /**
  * Lazy loads systems and caches them in memory.

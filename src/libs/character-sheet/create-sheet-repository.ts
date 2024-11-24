@@ -1,10 +1,10 @@
-import { type SystemAndRendererRegistrationMap } from "./models";
 import { type Storage } from "@libs/storage";
 import {
   createNewCharacterSheet,
   getAllCharacterSheets,
   getCharacterSheetById,
 } from "./api";
+import { type SystemAndRendererRegistrationMap } from "./types";
 
 export interface SheetRepositoryOptions {
   registrations: SystemAndRendererRegistrationMap;

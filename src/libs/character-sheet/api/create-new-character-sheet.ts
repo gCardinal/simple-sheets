@@ -1,9 +1,9 @@
 import { type Storage } from "@libs/storage";
 import { assert } from "@libs/validation";
-import { characterSheetSchema } from "../validation";
-import { type CharacterSheet, type SystemRegistration } from "../models";
+import { CharacterSheet } from "../models";
 import { nanoid } from "nanoid";
 import { CharacterSheetException } from "../character-sheet.exception";
+import { type SystemRegistration } from "../types";
 
 export const createNewCharacterSheet = async (
   characterName: string,
@@ -28,7 +28,7 @@ export const createNewCharacterSheet = async (
     },
   };
 
-  assert(character, characterSheetSchema);
+  assert(character, CharacterSheet);
 
   await storage.setItem(character.id, character);
 

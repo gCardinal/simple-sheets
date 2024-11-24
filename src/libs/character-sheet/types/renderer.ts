@@ -1,5 +1,4 @@
-import { type CharacterSheet } from "./character-sheet";
-import { type System } from "./system";
+import { type CharacterSheet, type System } from "../models";
 
 /**
  * A renderer is the object used to render a character sheet. It contains

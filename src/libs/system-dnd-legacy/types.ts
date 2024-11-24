@@ -6,19 +6,20 @@ export interface Condition {
   effects: string[];
 }
 
-export interface AbilityScore {
+export interface Ability {
   name: string;
   shortName: string;
 }
 
 export interface Skill {
   name: string;
+  shortName: string;
   abilityScore: string;
   description: string;
 }
 
 export interface DndLegacySystem extends System {
   conditions: Condition[];
-  abilityScores: AbilityScore[];
+  abilityScores: Ability[];
   skills: Skill[];
 }

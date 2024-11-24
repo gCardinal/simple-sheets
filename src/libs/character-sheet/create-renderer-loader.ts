@@ -1,4 +1,4 @@
-import { type Renderer, type SystemAndRendererRegistrationMap } from "./models";
+import { type Renderer, type SystemAndRendererRegistrationMap } from "./types";
 
 /**
  * Lazy loads renderers and caches them in memory.

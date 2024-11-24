@@ -1,4 +1,4 @@
-import { type System } from "./system";
+import { type System } from "../models";
 
 /**
  * Simple object containing the information required to load a system. This allows

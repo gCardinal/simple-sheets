@@ -1,7 +1,6 @@
 import { type Storage } from "@libs/storage";
 import { assert } from "@libs/validation";
-import { characterSheetSchema } from "../validation";
-import { type CharacterSheet } from "../models";
+import { CharacterSheet } from "../models";
 
 export const getAllCharacterSheets = async (
   storage: Storage,
@@ -11,7 +10,7 @@ export const getAllCharacterSheets = async (
 
   for (const key of keys) {
     const character = await storage.getItem(key);
-    assert(character, characterSheetSchema);
+    assert(character, CharacterSheet);
     characters.push(character);
   }
 

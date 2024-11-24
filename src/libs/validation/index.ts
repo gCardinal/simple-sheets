@@ -5,6 +5,12 @@ export {
   object,
   validate,
   number,
+  assign,
+  optional,
+  record,
+  boolean,
+  defaulted,
+  create,
   type Infer,
   type Describe,
 } from "superstruct";
