@@ -1,10 +1,12 @@
-import Dexie, { type EntityTable } from "dexie";
 import { type CharacterSheet } from "@libs/character-sheet";
+import { createConnection, type EntityTable } from "@libs/database";
 
-export const db = new Dexie("simple-sheets") as Dexie & {
+export const db = createConnection<{
   sheets: EntityTable<CharacterSheet, "id">;
-};
-
-db.version(1).stores({
-  sheets: "++id",
+}>({
+  version: 1,
+  databaseName: "simple-sheets",
+  tables: [
+    { name: "sheets", primaryKey: "id", autoIncrementPrimaryKey: false },
+  ],
 });

@@ -1,14 +1,7 @@
 import { db } from "../db";
 import { CharacterSheet } from "@libs/character-sheet";
 import { assert } from "@libs/validation";
-
-export type Repository<O = unknown> = {
-  create: (o: unknown) => Promise<string>;
-  getById: (id: string) => Promise<O | undefined>;
-  update: (o: O) => Promise<void>;
-  delete: (id: string) => Promise<void>;
-  list: () => Promise<O[]>;
-};
+import { type Repository } from "@libs/database";
 
 export const sheetRepository: Repository<CharacterSheet> = {
   async create(character: unknown): Promise<string> {

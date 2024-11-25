@@ -1,5 +1,4 @@
-import { type, string } from "@libs/validation";
-import { type Infer } from "superstruct";
+import { type, string, type Infer } from "@libs/validation";
 
 /**
  * Base interface for a character. Systems should extend this interface
