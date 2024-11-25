@@ -6,9 +6,15 @@ import {
 import { assert, create } from "@libs/validation";
 import { CharacterSheet } from "./components";
 
-export const render: Renderer["render"] = (character, system) => {
+export const render: Renderer["render"] = (character, system, bridge) => {
   const validatedCharacter = create(character, DndLegacyCharacterSheet);
   assert(system, DndLegacySystem);
 
-  return <CharacterSheet sheet={validatedCharacter} system={system} />;
+  return (
+    <CharacterSheet
+      sheet={validatedCharacter}
+      system={system}
+      bridge={bridge}
+    />
+  );
 };

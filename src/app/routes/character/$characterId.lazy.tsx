@@ -1,4 +1,5 @@
 import { createLazyFileRoute, getRouteApi } from "@tanstack/react-router";
+import { useGetSheet } from "../../sheets";
 
 const RouteApi = getRouteApi("/character/$characterId");
 
@@ -7,7 +8,14 @@ export const Route = createLazyFileRoute("/character/$characterId")({
 });
 
 function CharacterId() {
-  const { character, renderer, system } = RouteApi.useLoaderData();
+  const { characterId } = RouteApi.useParams();
+  // using hook for live update when data changes
+  const character = useGetSheet(characterId);
+  const { renderer, system, bridge } = RouteApi.useLoaderData();
 
-  return renderer.render(character, system);
+  if (!character) {
+    return <div>Oops</div>;
+  }
+
+  return renderer.render(character, system, bridge);
 }

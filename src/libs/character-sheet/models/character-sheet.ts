@@ -1,14 +1,17 @@
-import { object, string } from "@libs/validation";
+import { type, string } from "@libs/validation";
 import { type Infer } from "superstruct";
 
 /**
  * Base interface for a character. Systems should extend this interface
  * to add properties specific to their system.
  */
-export const CharacterSheet = object({
+export const CharacterSheet = type({
   id: string(),
   name: string(),
   systemSlug: string(),
 });
 
-export type CharacterSheet = Infer<typeof CharacterSheet>;
+// Allow arbitrary properties to be added to the character sheet since
+// each system will need more information than just the base sheet.
+export type CharacterSheet = Infer<typeof CharacterSheet> &
+  Record<string, unknown>;

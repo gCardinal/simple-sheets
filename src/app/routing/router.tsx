@@ -1,16 +1,11 @@
 import { routeTree } from "./routeTree.gen";
 import { createRouter } from "@tanstack/react-router";
-import { storage } from "../storage";
-import {
-  rendererLoader,
-  sheetRepository,
-  systemLoader,
-} from "../character-sheet";
+import { rendererLoader, systemLoader } from "../character-sheet";
+import { sheetRepository } from "../sheets";
 
 export const router = createRouter({
   routeTree,
   context: {
-    storage,
     sheetRepository,
     systemLoader,
     rendererLoader,

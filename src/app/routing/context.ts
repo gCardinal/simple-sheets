@@ -1,13 +1,8 @@
-import type { Storage } from "@libs/storage";
-import {
-  type RendererLoader,
-  type SheetRepository,
-  type SystemLoader,
-} from "@libs/character-sheet";
+import { type RendererLoader, type SystemLoader } from "@libs/character-sheet";
+import { type sheetRepository } from "../sheets";
 
 export interface RouterContext {
-  storage: Storage;
-  sheetRepository: SheetRepository;
   systemLoader: SystemLoader;
   rendererLoader: RendererLoader;
+  sheetRepository: typeof sheetRepository;
 }

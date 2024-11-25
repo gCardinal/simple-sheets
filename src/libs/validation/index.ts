@@ -11,6 +11,7 @@ export {
   boolean,
   defaulted,
   create,
+  type,
   type Infer,
   type Describe,
 } from "superstruct";

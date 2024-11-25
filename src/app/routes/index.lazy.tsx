@@ -1,32 +1,37 @@
 import {
   createLazyFileRoute,
-  getRouteApi,
   Link,
   useNavigate,
+  useRouteContext,
 } from "@tanstack/react-router";
 import {
+  Badge,
   Button,
   Group,
   Modal,
   Select,
   Stack,
   TextInput,
-  Badge,
 } from "@libs/ui";
 import { type FormEvent, useState } from "react";
+import { useCreateNewSheet, useDeleteSheet, useGetAllSheets } from "../sheets";
 
-const RouteApi = getRouteApi("/");
+// const RouteApi = getRouteApi("/");
 
 export const Route = createLazyFileRoute("/")({
   component: Index,
 });
 
 function Index() {
-  const { characters, sheetRepository, systemLoader } =
-    RouteApi.useLoaderData();
+  // const router = useRouter();
+  // const { systemLoader } = RouteApi.useLoaderData();
+  const { systemLoader } = useRouteContext({ from: "/" });
   const navigate = useNavigate();
   const [isCreateNewCharacterModalOpen, setIsCreateNewCharacterModalOpen] =
     useState(false);
+  const sheets = useGetAllSheets();
+  const createNewSheet = useCreateNewSheet();
+  const deleteSheet = useDeleteSheet();
 
   const createCharacter = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -36,13 +41,16 @@ function Index() {
     const name = formData.get("name") as string;
     const system = formData.get("system") as string;
 
-    const sheet = await sheetRepository.create(name, system);
+    const id = await createNewSheet(name, system);
 
-    await navigate({ to: `/character/${sheet.id}` });
+    await navigate({ to: `/character/${id}` });
   };
 
   const deleteCharacter = async (id: string) => {
-    await sheetRepository.delete(id);
+    await deleteSheet(id);
+    // await router.invalidate({
+    //   filter: ({ routeId }) => routeId === "/",
+    // });
   };
 
   const openModal = () => setIsCreateNewCharacterModalOpen(true);
@@ -51,7 +59,7 @@ function Index() {
   return (
     <>
       <ul>
-        {characters.map(({ id, name, systemSlug }) => (
+        {sheets.map(({ id, name, systemSlug }) => (
           <li key={id}>
             <Link to={`/character/${id}`}>{name}</Link>
             <Badge variant="outline" color="blue">
