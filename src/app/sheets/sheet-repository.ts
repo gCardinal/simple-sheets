@@ -5,12 +5,6 @@ import { type Repository } from "@libs/database";
 
 export const sheetRepository: Repository<CharacterSheet> = {
   async create(character: unknown): Promise<string> {
-    // const character: Partial<CharacterSheet> = {
-    //   id: nanoid(),
-    //   name,
-    //   systemSlug,
-    // };
-
     assert(character, CharacterSheet);
 
     return db.sheets.add(character);

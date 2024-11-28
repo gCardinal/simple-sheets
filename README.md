@@ -1,50 +1,47 @@
-# React + TypeScript + Vite
+Simple Sheets
+===
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is both an online tool to create, manage and
+share RPG character sheets online and an excuse for me
+to play around new libraries and technologies and
+over-engineer a simple project.
 
-Currently, two official plugins are available:
+Since professionally I always have to balance clean and well
+tested code with ROI, often shortcuts are taken or partial
+solutions, coupled to the domain, are implemented. Here, I can
+go stupidly overboard with the architecture and design :)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Requirements
 
-## Expanding the ESLint configuration
+- nvm
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Installation
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+nvm install && nvm use && yarn
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Running
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+yarn dev
 ```
+
+## About This Project
+
+As mentioned above, this is just a playground for me to do
+things I can't do in an environment where efficiency also has
+to be taken into account. I don't expect many (or any) people
+will read this, but I will still try and document my thought
+process for any decision I've made in this project.
+
+### Libraries Used
+
+I just wanted to play with them ¯\\_(ツ)_/¯.
+
+- `@tanstack/router`: Been using `react-router` for a while now
+  and wanted to try it since it seems like it's just... better.
+- `dexie`: Never really had a reason to play with IndexedDB and
+  this seemed like a good excuse. I also debated implementing
+  a ORM myself, but... nah. You who read this, know that 
+  databases and I aren't friends.
