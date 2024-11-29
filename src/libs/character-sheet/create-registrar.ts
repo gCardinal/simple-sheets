@@ -1,10 +1,43 @@
 import type { RendererRegister, SystemRegister } from "./types";
-import { CharacterSheetException } from "@libs/character-sheet/exceptions.ts";
+import { CharacterSheetException } from "./exceptions";
+
+const validateRegistries = (
+  registries: [SystemRegister, RendererRegister][],
+) => {
+  const validationErrors: CharacterSheetException[] = [];
+
+  for (const registry of registries) {
+    const [system, renderer] = registry;
+
+    if (system.slug !== renderer.system) {
+      validationErrors.push(
+        CharacterSheetException.mismatchedSystemAndRenderer(
+          system.slug,
+          renderer.system,
+        ),
+      );
+    }
+
+    if (!renderer.versions.includes(system.version)) {
+      validationErrors.push(
+        CharacterSheetException.rendererVersionMismatch(
+          system.slug,
+          system.version,
+          renderer.versions,
+        ),
+      );
+    }
+  }
+
+  if (validationErrors.length) {
+    throw CharacterSheetException.registrationFailed(validationErrors);
+  }
+};
 
 export const createRegistrar = (
   registries: [SystemRegister, RendererRegister][],
 ) => {
-  // run validations
+  validateRegistries(registries);
 
   return {
     getAllSystemRegisters: (): SystemRegister[] =>

@@ -3,7 +3,7 @@ import { type SystemRegister } from "../../types";
 import { vi } from "vitest";
 import { faker } from "@faker-js/faker";
 
-export const systemRegistrationFactory = Factory.define<SystemRegister>(() => ({
+export const systemRegisterFactory = Factory.define<SystemRegister>(() => ({
   name: faker.word.noun(),
   version: faker.number.int(),
   slug: faker.lorem.slug(),

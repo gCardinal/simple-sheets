@@ -1,23 +1,87 @@
 import { describe, expect, it } from "vitest";
-import {
-  rendererRegistrationFactory,
-  systemRegistrationFactory,
-} from "./tests";
+import { rendererRegisterFactory, systemRegisterFactory } from "./tests";
 import { createRegistrar } from "./create-registrar";
+import { CharacterSheetException } from "@libs/character-sheet/exceptions.ts";
 
 describe("createRegistrar()", () => {
+  it("should validate mapped systems and renderers are version compatible", () => {
+    const slug = "test";
+
+    expect(() => {
+      createRegistrar([
+        [
+          systemRegisterFactory.build({ version: 3, slug }),
+          rendererRegisterFactory.build({ system: slug, versions: [1, 2] }),
+        ],
+      ]);
+    }).toThrow(
+      CharacterSheetException.registrationFailed([
+        CharacterSheetException.rendererVersionMismatch(slug, 3, [1, 2]),
+      ]),
+    );
+  });
+
+  it("should validate mapped systems and renderers share the same slug", () => {
+    expect(() => {
+      createRegistrar([
+        [
+          systemRegisterFactory.build({ version: 1, slug: "something" }),
+          rendererRegisterFactory.build({
+            versions: [1],
+            system: "something-else",
+          }),
+        ],
+      ]);
+    }).toThrow(
+      CharacterSheetException.registrationFailed([
+        CharacterSheetException.mismatchedSystemAndRenderer(
+          "something",
+          "something-else",
+        ),
+      ]),
+    );
+  });
+
+  it("should aggregate all encountered issues while validation", () => {
+    expect(() => {
+      createRegistrar([
+        [
+          systemRegisterFactory.build({ version: 1, slug: "something" }),
+          rendererRegisterFactory.build({
+            versions: [2],
+            system: "something-else",
+          }),
+        ],
+      ]);
+    }).toThrow(
+      CharacterSheetException.registrationFailed([
+        CharacterSheetException.mismatchedSystemAndRenderer(
+          "something",
+          "something-else",
+        ),
+        CharacterSheetException.rendererVersionMismatch("something", 1, [2]),
+      ]),
+    );
+  });
+
   it("should list all registered systems", () => {
-    const firstSystem = systemRegistrationFactory.build();
-    const secondSystem = systemRegistrationFactory.build();
+    const firstSystem = systemRegisterFactory.build();
+    const secondSystem = systemRegisterFactory.build();
 
     const registrar = createRegistrar([
       [
         firstSystem,
-        rendererRegistrationFactory.build({ system: firstSystem.slug }),
+        rendererRegisterFactory.build({
+          system: firstSystem.slug,
+          versions: [firstSystem.version],
+        }),
       ],
       [
         secondSystem,
-        rendererRegistrationFactory.build({ system: secondSystem.slug }),
+        rendererRegisterFactory.build({
+          system: secondSystem.slug,
+          versions: [secondSystem.version],
+        }),
       ],
     ]);
 
@@ -27,9 +91,61 @@ describe("createRegistrar()", () => {
     ]);
   });
 
-  it("should return an empty array should no system be registered", () => {});
+  it("should return an empty array should no system be registered", () => {
+    const registrar = createRegistrar([]);
 
-  it("should get a registerer system", () => {});
+    expect(registrar.getAllSystemRegisters()).toEqual([]);
+  });
 
-  it("should throw when attempting to get a registered system that does not exist", () => {});
+  it("should get a registered system", () => {
+    const systemRegister = systemRegisterFactory.build();
+
+    const registrar = createRegistrar([
+      [
+        systemRegister,
+        rendererRegisterFactory.build({
+          system: systemRegister.slug,
+          versions: [systemRegister.version],
+        }),
+      ],
+    ]);
+
+    expect(registrar.getSystemRegister(systemRegister.slug)).toMatchObject(
+      systemRegister,
+    );
+  });
+
+  it("should throw when attempting to get a registered system that does not exist", () => {
+    const registrar = createRegistrar([]);
+
+    expect(() => {
+      registrar.getSystemRegister("slug");
+    }).toThrow(
+      CharacterSheetException.requestedResourceNotFound("slug", "system"),
+    );
+  });
+
+  it("should get a registered renderer", () => {
+    const systemRegister = systemRegisterFactory.build();
+    const rendererRegister = rendererRegisterFactory.build({
+      system: systemRegister.slug,
+      versions: [systemRegister.version],
+    });
+
+    const registrar = createRegistrar([[systemRegister, rendererRegister]]);
+
+    expect(registrar.getRendererRegister(systemRegister.slug)).toMatchObject(
+      rendererRegister,
+    );
+  });
+
+  it("should throw when attempting to get a registered renderer that does not exist", () => {
+    const registrar = createRegistrar([]);
+
+    expect(() => {
+      registrar.getRendererRegister("slug");
+    }).toThrow(
+      CharacterSheetException.requestedResourceNotFound("slug", "renderer"),
+    );
+  });
 });
