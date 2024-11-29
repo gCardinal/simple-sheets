@@ -1,4 +1,5 @@
 import { type Renderer, type SystemAndRendererRegistrationMap } from "./types";
+import { CharacterSheetException } from "./exceptions";
 
 /**
  * Lazy loads renderers and caches them in memory.
@@ -23,7 +24,10 @@ export const createRendererLoader = (
         }
       }
 
-      throw new Error("nope");
+      throw CharacterSheetException.requestedSystemNotFound(
+        slug,
+        "load-renderer",
+      );
     },
   };
 };

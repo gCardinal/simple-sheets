@@ -1,5 +1,9 @@
 import { type System } from "./models";
-import { type SystemAndRendererRegistrationMap } from "./types";
+import {
+  type SystemAndRendererRegistrationMap,
+  type SystemRegistration,
+} from "./types";
+import { CharacterSheetException } from "@libs/character-sheet/exceptions.ts";
 
 /**
  * Lazy loads systems and caches them in memory.
@@ -25,11 +29,14 @@ export const createSystemLoader = (
         }
       }
 
-      throw new Error("nope");
+      throw CharacterSheetException.requestedSystemNotFound(
+        slug,
+        "load-system",
+      );
     },
-    getRegisteredSystems: (): System[] =>
+    getRegisteredSystems: (): SystemRegistration[] =>
       registrations.map(([system]) => system),
-    getRegisteredSystem: (slug: string): System => {
+    getRegisteredSystem: (slug: string): SystemRegistration => {
       const registration = registrations.find(
         ([system]) => system.slug === slug,
       );

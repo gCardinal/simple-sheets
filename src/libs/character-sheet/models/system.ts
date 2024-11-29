@@ -1,4 +1,4 @@
-import { type Infer, number, object, string } from "@libs/validation";
+import { type Infer, number, type, string } from "@libs/validation";
 
 /**
  * A system is the object used to define a system for character sheets. This
@@ -8,7 +8,7 @@ import { type Infer, number, object, string } from "@libs/validation";
  * This interface should be extended by systems to add properties they
  * will require to be functional.
  */
-export const System = object({
+export const System = type({
   /**
    * Slug name of the system; used to fetch the system.
    */
@@ -29,4 +29,4 @@ export const System = object({
   shortName: string(),
 });
 
-export type System = Infer<typeof System>;
+export type System = Infer<typeof System> & Record<string, unknown>;

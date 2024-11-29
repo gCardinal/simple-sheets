@@ -15,5 +15,3 @@ export {
   type Infer,
   type Describe,
 } from "superstruct";
-export * from "./schema";
-export * from "./validate";
