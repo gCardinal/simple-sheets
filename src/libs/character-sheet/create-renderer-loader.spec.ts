@@ -1,20 +1,26 @@
 import { describe, expect, it, vi } from "vitest";
 import { createRendererLoader } from "./create-renderer-loader";
-import { CharacterSheetException } from "@libs/character-sheet/exceptions.ts";
+import { CharacterSheetException } from "./exceptions";
 import {
   rendererFactory,
   rendererRegistrationFactory,
   systemRegistrationFactory,
-} from "@libs/character-sheet/tests";
+} from "./tests";
+import { createRegistrar } from "./create-registrar";
 
 describe("createRendererLoader()", () => {
   const systemSlug = "test-system";
 
   it("should create a loader", () => {
     const loadRenderer = vi.fn();
-    const loader = createRendererLoader([
-      [systemRegistrationFactory.build(), rendererRegistrationFactory.build()],
-    ]);
+    const loader = createRendererLoader(
+      createRegistrar([
+        [
+          systemRegistrationFactory.build(),
+          rendererRegistrationFactory.build(),
+        ],
+      ]),
+    );
 
     expect(loader).toBeDefined();
     expect(loadRenderer).not.toHaveBeenCalled();
@@ -23,12 +29,17 @@ describe("createRendererLoader()", () => {
   it("should load the requested system renderer", async () => {
     const renderer = rendererFactory.build();
     const loadRenderer = vi.fn().mockResolvedValue(renderer);
-    const loader = createRendererLoader([
-      [
-        systemRegistrationFactory.build({ slug: systemSlug }),
-        rendererRegistrationFactory.build({ system: systemSlug, loadRenderer }),
-      ],
-    ]);
+    const loader = createRendererLoader(
+      createRegistrar([
+        [
+          systemRegistrationFactory.build({ slug: systemSlug }),
+          rendererRegistrationFactory.build({
+            system: systemSlug,
+            loadRenderer,
+          }),
+        ],
+      ]),
+    );
 
     const result = await loader.load(systemSlug);
 
@@ -39,12 +50,17 @@ describe("createRendererLoader()", () => {
     const loadRenderer = vi
       .fn()
       .mockResolvedValue(rendererFactory.build({ slug: systemSlug }));
-    const loader = createRendererLoader([
-      [
-        systemRegistrationFactory.build({ slug: systemSlug }),
-        rendererRegistrationFactory.build({ system: systemSlug, loadRenderer }),
-      ],
-    ]);
+    const loader = createRendererLoader(
+      createRegistrar([
+        [
+          systemRegistrationFactory.build({ slug: systemSlug }),
+          rendererRegistrationFactory.build({
+            system: systemSlug,
+            loadRenderer,
+          }),
+        ],
+      ]),
+    );
 
     await loader.load(systemSlug);
     await loader.load(systemSlug);
@@ -55,19 +71,24 @@ describe("createRendererLoader()", () => {
   it("should attempt loading the correct renderer", async () => {
     const loadRenderer = vi.fn().mockResolvedValue(rendererFactory.build());
     const otherSystemLoadRenderer = vi.fn().mockResolvedValue({});
-    const loader = createRendererLoader([
-      [
-        systemRegistrationFactory.build({ slug: "other-system" }),
-        rendererRegistrationFactory.build({
-          system: "other-system",
-          loadRenderer: otherSystemLoadRenderer,
-        }),
-      ],
-      [
-        systemRegistrationFactory.build({ slug: systemSlug }),
-        rendererRegistrationFactory.build({ system: systemSlug, loadRenderer }),
-      ],
-    ]);
+    const loader = createRendererLoader(
+      createRegistrar([
+        [
+          systemRegistrationFactory.build({ slug: "other-system" }),
+          rendererRegistrationFactory.build({
+            system: "other-system",
+            loadRenderer: otherSystemLoadRenderer,
+          }),
+        ],
+        [
+          systemRegistrationFactory.build({ slug: systemSlug }),
+          rendererRegistrationFactory.build({
+            system: systemSlug,
+            loadRenderer,
+          }),
+        ],
+      ]),
+    );
 
     await loader.load(systemSlug);
 
@@ -76,14 +97,19 @@ describe("createRendererLoader()", () => {
   });
 
   it("should throw if no renderer exists for the requested system", async () => {
-    const loader = createRendererLoader([
-      [systemRegistrationFactory.build(), rendererRegistrationFactory.build()],
-    ]);
+    const loader = createRendererLoader(
+      createRegistrar([
+        [
+          systemRegistrationFactory.build(),
+          rendererRegistrationFactory.build(),
+        ],
+      ]),
+    );
 
     await expect(() => loader.load("not-exist")).rejects.toThrow(
-      CharacterSheetException.requestedSystemNotFound(
+      CharacterSheetException.requestedResourceNotFound(
         "not-exist",
-        "load-renderer",
+        "renderer",
       ),
     );
   });

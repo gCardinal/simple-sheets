@@ -1,7 +1,7 @@
-import { type RendererRegistration } from "./renderer-registration";
-import { type SystemRegistration } from "./system-registration";
+import { type RendererRegister } from "./renderer-register.ts";
+import { type SystemRegister } from "./system-register.ts";
 
 export type SystemAndRendererRegistrationMap = [
-  SystemRegistration,
-  RendererRegistration,
+  SystemRegister,
+  RendererRegister,
 ][];

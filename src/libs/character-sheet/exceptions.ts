@@ -4,12 +4,12 @@ export class CharacterSheetException extends Error {
     this.name = this.constructor.name;
   }
 
-  public static requestedSystemNotFound(
+  public static requestedResourceNotFound(
     slug: string,
-    operation: "load-system" | "load-renderer",
+    resourceType: "system" | "renderer",
   ): CharacterSheetException {
     return new CharacterSheetException(
-      `No system found for slug "${slug}" when trying to ${operation}.`,
+      `Unable to locate requested ${resourceType} with slug ${slug} within the registry.`,
     );
   }
 }

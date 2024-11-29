@@ -1,16 +1,10 @@
 import { type System } from "./models";
-import {
-  type SystemAndRendererRegistrationMap,
-  type SystemRegistration,
-} from "./types";
-import { CharacterSheetException } from "@libs/character-sheet/exceptions.ts";
+import { type Registrar } from "./create-registrar";
 
 /**
  * Lazy loads systems and caches them in memory.
  */
-export const createSystemLoader = (
-  registrations: SystemAndRendererRegistrationMap,
-) => {
+export const createSystemLoader = (registrar: Registrar) => {
   const loadedSystems = new Map<string, System>();
 
   return {
@@ -21,32 +15,26 @@ export const createSystemLoader = (
         return loadedSystem;
       }
 
-      for (const [systemRegistration] of registrations) {
-        if (slug === systemRegistration.slug) {
-          const system = await systemRegistration.loadSystem();
-          loadedSystems.set(system.slug, system);
-          return system;
-        }
-      }
+      const systemRegister = registrar.getSystemRegister(slug);
+      const system = await systemRegister.loadSystem();
 
-      throw CharacterSheetException.requestedSystemNotFound(
-        slug,
-        "load-system",
-      );
+      loadedSystems.set(system.slug, system);
+
+      return system;
     },
-    getRegisteredSystems: (): SystemRegistration[] =>
-      registrations.map(([system]) => system),
-    getRegisteredSystem: (slug: string): SystemRegistration => {
-      const registration = registrations.find(
-        ([system]) => system.slug === slug,
-      );
-
-      if (!registration) {
-        throw new Error("System not found");
-      }
-
-      return registration[0];
-    },
+    // getRegisteredSystems: (): SystemRegister[] =>
+    //   registrations.map(([system]) => system),
+    // getRegisteredSystem: (slug: string): SystemRegister => {
+    //   const registration = registrations.find(
+    //     ([system]) => system.slug === slug,
+    //   );
+    //
+    //   if (!registration) {
+    //     throw new Error("System not found");
+    //   }
+    //
+    //   return registration[0];
+    // },
   };
 };
 
