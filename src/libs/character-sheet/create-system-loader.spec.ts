@@ -15,7 +15,10 @@ describe("createSystemLoader()", () => {
     const loadSystem = vi.fn();
     const loader = createSystemLoader(
       createRegistrar([
-        [systemRegisterFactory.build(), rendererRegisterFactory.build()],
+        [
+          systemRegisterFactory.build({ slug: systemSlug, version: 1 }),
+          rendererRegisterFactory.build({ system: systemSlug, versions: [1] }),
+        ],
       ]),
     );
 
@@ -29,8 +32,12 @@ describe("createSystemLoader()", () => {
     const loader = createSystemLoader(
       createRegistrar([
         [
-          systemRegisterFactory.build({ slug: systemSlug, loadSystem }),
-          rendererRegisterFactory.build(),
+          systemRegisterFactory.build({
+            slug: systemSlug,
+            version: 1,
+            loadSystem,
+          }),
+          rendererRegisterFactory.build({ system: systemSlug, versions: [1] }),
         ],
       ]),
     );
@@ -47,8 +54,12 @@ describe("createSystemLoader()", () => {
     const loader = createSystemLoader(
       createRegistrar([
         [
-          systemRegisterFactory.build({ slug: systemSlug, loadSystem }),
-          rendererRegisterFactory.build(),
+          systemRegisterFactory.build({
+            slug: systemSlug,
+            version: 1,
+            loadSystem,
+          }),
+          rendererRegisterFactory.build({ system: systemSlug, versions: [1] }),
         ],
       ]),
     );
@@ -67,13 +78,21 @@ describe("createSystemLoader()", () => {
         [
           systemRegisterFactory.build({
             slug: "another-system",
+            version: 1,
             loadSystem: otherLoadSystem,
           }),
-          rendererRegisterFactory.build({ system: "another-system" }),
+          rendererRegisterFactory.build({
+            system: "another-system",
+            versions: [1],
+          }),
         ],
         [
-          systemRegisterFactory.build({ slug: systemSlug, loadSystem }),
-          rendererRegisterFactory.build({ system: systemSlug }),
+          systemRegisterFactory.build({
+            slug: systemSlug,
+            version: 1,
+            loadSystem,
+          }),
+          rendererRegisterFactory.build({ system: systemSlug, versions: [1] }),
         ],
       ]),
     );
@@ -87,7 +106,10 @@ describe("createSystemLoader()", () => {
   it("should throw if no renderer exists for the requested system", async () => {
     const loader = createSystemLoader(
       createRegistrar([
-        [systemRegisterFactory.build(), rendererRegisterFactory.build()],
+        [
+          systemRegisterFactory.build({ slug: systemSlug, version: 1 }),
+          rendererRegisterFactory.build({ system: systemSlug, versions: [1] }),
+        ],
       ]),
     );
 
@@ -95,9 +117,4 @@ describe("createSystemLoader()", () => {
       CharacterSheetException.requestedResourceNotFound("not-exist", "system"),
     );
   });
-
-  it("should list all registered systems", () => {});
-  it("should return an empty array should no system be registered", () => {});
-  it("should get a registerer system", () => {});
-  it("should throw when attempting to get a registered system that does not exist", () => {});
 });
