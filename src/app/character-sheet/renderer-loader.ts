@@ -2,7 +2,6 @@ import {
   createRendererLoader,
   type RendererLoader,
 } from "@libs/character-sheet";
-import { registrations } from "./registration-map";
+import { registrar } from "./registrar.ts";
 
-export const rendererLoader: RendererLoader =
-  createRendererLoader(registrations);
+export const rendererLoader: RendererLoader = createRendererLoader(registrar);

@@ -16,16 +16,12 @@ import {
 import { type FormEvent, useState } from "react";
 import { useCreateNewSheet, useDeleteSheet, useGetAllSheets } from "../sheets";
 
-// const RouteApi = getRouteApi("/");
-
 export const Route = createLazyFileRoute("/")({
   component: Index,
 });
 
 function Index() {
-  // const router = useRouter();
-  // const { systemLoader } = RouteApi.useLoaderData();
-  const { systemLoader } = useRouteContext({ from: "/" });
+  const { registrar } = useRouteContext({ from: "/" });
   const navigate = useNavigate();
   const [isCreateNewCharacterModalOpen, setIsCreateNewCharacterModalOpen] =
     useState(false);
@@ -48,9 +44,6 @@ function Index() {
 
   const deleteCharacter = async (id: string) => {
     await deleteSheet(id);
-    // await router.invalidate({
-    //   filter: ({ routeId }) => routeId === "/",
-    // });
   };
 
   const openModal = () => setIsCreateNewCharacterModalOpen(true);
@@ -63,7 +56,7 @@ function Index() {
           <li key={id}>
             <Link to={`/character/${id}`}>{name}</Link>
             <Badge variant="outline" color="blue">
-              {systemLoader.getRegisteredSystem(systemSlug).name}
+              {registrar.getSystemRegister(systemSlug).name}
             </Badge>
             <Button
               variant="subtle"
@@ -91,12 +84,10 @@ function Index() {
             <Select
               name="system"
               label="System"
-              data={systemLoader
-                .getRegisteredSystems()
-                .map(({ name, slug }) => ({
-                  value: slug,
-                  label: name,
-                }))}
+              data={registrar.getAllSystemRegisters().map(({ name, slug }) => ({
+                value: slug,
+                label: name,
+              }))}
               searchable
             />
             <Group justify="flex-end">

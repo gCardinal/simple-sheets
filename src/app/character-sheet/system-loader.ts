@@ -1,4 +1,4 @@
 import { createSystemLoader, type SystemLoader } from "@libs/character-sheet";
-import { registrations } from "./registration-map";
+import { registrar } from "./registrar.ts";
 
-export const systemLoader: SystemLoader = createSystemLoader(registrations);
+export const systemLoader: SystemLoader = createSystemLoader(registrar);
