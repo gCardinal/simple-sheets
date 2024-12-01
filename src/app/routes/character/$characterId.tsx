@@ -16,6 +16,8 @@ export const Route = createFileRoute("/character/$characterId")({
     const system = await systemLoader.load(character.systemSlug);
     const bridge = createDataBridge(sheetRepository);
 
-    return { renderer, system, bridge };
+    // Character is returned here for parts of the UI to have
+    // access to the basic information (name, system, etc.).
+    return { renderer, system, bridge, character };
   },
 });

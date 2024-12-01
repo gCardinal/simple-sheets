@@ -1,20 +1,13 @@
 import {
   createLazyFileRoute,
-  Link,
   useNavigate,
   useRouteContext,
 } from "@tanstack/react-router";
-import {
-  Badge,
-  Button,
-  Group,
-  Modal,
-  Select,
-  Stack,
-  TextInput,
-} from "@libs/ui";
-import { type FormEvent, useState } from "react";
+import { Button, Stack } from "@libs/ui";
 import { useCreateNewSheet, useDeleteSheet, useGetAllSheets } from "../sheets";
+import { CharacterList, CreateNewCharacterModal } from "../components";
+import { type CreateNewCharacterFormData } from "../forms";
+import { useDisclosure } from "@mantine/hooks";
 
 export const Route = createLazyFileRoute("/")({
   component: Index,
@@ -23,82 +16,46 @@ export const Route = createLazyFileRoute("/")({
 function Index() {
   const { registrar } = useRouteContext({ from: "/" });
   const navigate = useNavigate();
-  const [isCreateNewCharacterModalOpen, setIsCreateNewCharacterModalOpen] =
-    useState(false);
+  const [isCreateNewCharacterModalOpen, { open, close }] = useDisclosure(false);
   const sheets = useGetAllSheets();
   const createNewSheet = useCreateNewSheet();
   const deleteSheet = useDeleteSheet();
 
-  const createCharacter = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    // @todo: use form lib for validation here
-    const formData = new FormData(event.currentTarget);
-    const name = formData.get("name") as string;
-    const system = formData.get("system") as string;
-
+  const createCharacter = async ({
+    name,
+    system,
+  }: CreateNewCharacterFormData) => {
     const id = await createNewSheet(name, system);
 
-    await navigate({ to: `/character/${id}` });
+    await navigate({
+      to: "/character/$characterId",
+      params: { characterId: id },
+    });
   };
 
   const deleteCharacter = async (id: string) => {
     await deleteSheet(id);
   };
 
-  const openModal = () => setIsCreateNewCharacterModalOpen(true);
-  const closeModal = () => setIsCreateNewCharacterModalOpen(false);
-
   return (
     <>
-      <ul>
-        {sheets.map(({ id, name, systemSlug }) => (
-          <li key={id}>
-            <Link to={`/character/${id}`}>{name}</Link>
-            <Badge variant="outline" color="blue">
-              {registrar.getSystemRegister(systemSlug).name}
-            </Badge>
-            <Button
-              variant="subtle"
-              color="red"
-              onClick={() => {
-                void deleteCharacter(id);
-              }}
-            >
-              Delete
-            </Button>
-          </li>
-        ))}
-        <li>
-          <Button onClick={openModal}>Create new</Button>
-        </li>
-      </ul>
-      <Modal
-        opened={isCreateNewCharacterModalOpen}
-        onClose={closeModal}
-        title="Create new character"
-      >
-        <form onSubmit={createCharacter}>
-          <Stack>
-            <TextInput name="name" label="Character Name" withAsterisk />
-            <Select
-              name="system"
-              label="System"
-              data={registrar.getAllSystemRegisters().map(({ name, slug }) => ({
-                value: slug,
-                label: name,
-              }))}
-              searchable
-            />
-            <Group justify="flex-end">
-              <Button variant="light" onClick={closeModal}>
-                Cancel
-              </Button>
-              <Button type="submit">Create</Button>
-            </Group>
-          </Stack>
-        </form>
-      </Modal>
+      <Stack>
+        <CharacterList
+          characters={sheets.map(({ id, name, systemSlug }) => ({
+            id,
+            name,
+            system: registrar.getSystemRegister(systemSlug).name,
+          }))}
+          onCharacterDeleteClicked={deleteCharacter}
+        />
+        <Button onClick={open}>Create new</Button>
+      </Stack>
+      <CreateNewCharacterModal
+        systems={registrar.getAllSystemRegisters().map((system) => system)}
+        isOpen={isCreateNewCharacterModalOpen}
+        onClose={close}
+        onSuccessfulSubmit={createCharacter}
+      />
     </>
   );
 }

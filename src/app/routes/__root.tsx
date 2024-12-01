@@ -1,24 +1,6 @@
-import { Link, Outlet } from "@tanstack/react-router";
-import { Suspense } from "react";
-import { createRootRoute, TanStackRouterDevtools } from "../routing";
+import { createRootRoute } from "../routing";
+import { Layout } from "../components";
 
 export const Route = createRootRoute({
-  component: Root,
+  component: () => <Layout />,
 });
-
-function Root() {
-  return (
-    <>
-      <div className="p-2 flex gap-2">
-        <Link to="/" className="[&.active]:font-bold">
-          Home
-        </Link>
-      </div>
-      <hr />
-      <Outlet />
-      <Suspense>
-        <TanStackRouterDevtools />
-      </Suspense>
-    </>
-  );
-}
