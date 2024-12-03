@@ -1,0 +1,51 @@
+name: release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  install:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.JS version
+        shell: bash -l {0}
+        run: nvm install
+
+      - name: Install
+        run: yarn
+
+  validate:
+    runs-on: macos-latest
+    needs: install
+
+    steps:
+      - name: Lint
+        run: yarn lint
+
+      - name: Tests
+        run: yarn test
+
+  build:
+    runs-on: macos-latest
+    needs: validate
+
+    steps:
+      - name: Build
+        run: yarn build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-files
+          path: ./dist
+
+  release:
+    runs-on: macos-latest
+    needs: build
+
+    steps:
+      - name: Release
+        run: yarn release
