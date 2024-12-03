@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "vite -c vite.config.ts src/app",
     "build": "vite build -c vite.config.ts src/app",
-    "lint": "eslint ./apps ./libs && prettier --write ./apps ./libs",
-    "test": "vitest"
+    "lint": "eslint ./src/app ./src/libs && prettier ./src/app ./src/libs",
+    "lint:fix": "eslint --fix ./src/app ./src/libs && prettier --write ./src/app ./src/libs",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
