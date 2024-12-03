@@ -49,3 +49,7 @@ jobs:
     steps:
       - name: Release
         run: yarn release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: 0944858d-e2a7-4e8d-bbeb-212c6d78d53f
