@@ -6,7 +6,6 @@ export default {
   plugins: [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
-    "@semantic-release/github",
     [
       "semantic-release-replace-plugin",
       {
@@ -19,6 +18,12 @@ export default {
         ],
       },
     ],
-    "@eclass/semantic-release-netlify",
+    [
+      "@semantic-release/exec",
+      {
+        publishCmd: "yarn netlify deploy --prod --dir=dist",
+      },
+    ],
+    "@semantic-release/github",
   ],
 };

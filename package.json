@@ -25,9 +25,9 @@
     "superstruct": "^2.0.2"
   },
   "devDependencies": {
-    "@eclass/semantic-release-netlify": "^2.0.0",
     "@eslint/js": "^9.15.0",
     "@faker-js/faker": "^9.2.0",
+    "@semantic-release/exec": "^6.0.3",
     "@tanstack/eslint-plugin-query": "^5.61.6",
     "@tanstack/eslint-plugin-router": "^1.82.12",
     "@tanstack/router-devtools": "^1.84.0",
@@ -49,6 +49,7 @@
     "fishery": "^2.2.2",
     "globals": "^15.12.0",
     "happy-dom": "^15.11.7",
+    "netlify-cli": "^17.38.0",
     "postcss": "^8.4.47",
     "postcss-preset-mantine": "^1.17.0",
     "postcss-simple-vars": "^7.0.1",
