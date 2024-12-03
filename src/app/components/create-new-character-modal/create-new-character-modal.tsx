@@ -34,6 +34,7 @@ export const CreateNewCharacterModal: FC<CreateNewCharacterModalProps> = ({
 
   return (
     <Modal
+      centered
       opened={isOpen}
       onClose={onCloseHandler}
       title="Create new character"

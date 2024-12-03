@@ -17,5 +17,7 @@ export {
   SimpleGrid,
   Center,
   Container,
+  Box,
+  Input,
   MantineProvider as ThemeProvider,
 } from "@mantine/core";

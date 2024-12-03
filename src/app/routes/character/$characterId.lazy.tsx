@@ -1,7 +1,5 @@
 import { createLazyFileRoute, getRouteApi } from "@tanstack/react-router";
 import { useGetSheet } from "../../sheets";
-import { Paper } from "@libs/ui";
-import { type ReactNode } from "react";
 
 const RouteApi = getRouteApi("/character/$characterId");
 
@@ -20,9 +18,5 @@ function CharacterId() {
     return <div>Oops</div>;
   }
 
-  return (
-    <Paper shadow="md" p="md">
-      {renderer.render(sheet, system, bridge) as ReactNode}
-    </Paper>
-  );
+  return renderer.render(sheet, system, bridge);
 }

@@ -12,6 +12,7 @@ export {
   defaulted,
   create,
   type,
+  func,
   type Infer,
   type Describe,
 } from "superstruct";
