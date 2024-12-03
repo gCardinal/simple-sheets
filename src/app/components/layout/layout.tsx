@@ -1,9 +1,10 @@
 import { useDisclosure } from "@mantine/hooks";
-import { AppShell, Burger, Group, Stack, Container } from "@libs/ui";
+import { AppShell, Burger, Container, Group, Stack, Text } from "@libs/ui";
 import { Navigation } from "../navigation";
 import { Outlet, useChildMatches } from "@tanstack/react-router";
 import { type FC, Suspense } from "react";
 import { TanStackRouterDevtools } from "../../routing";
+import { config } from "@libs/config";
 
 export const Layout: FC = () => {
   const [opened, { toggle }] = useDisclosure();
@@ -35,10 +36,15 @@ export const Layout: FC = () => {
       </AppShell.Header>
 
       <AppShell.Navbar>
-        <Stack>
-          <Navigation onClick={toggle} to="/">
-            Home
-          </Navigation>
+        <Stack flex={1}>
+          <Stack flex={1}>
+            <Navigation onClick={toggle} to="/">
+              Home
+            </Navigation>
+          </Stack>
+          <Group justify="flex-end">
+            <Text>{config.version}</Text>
+          </Group>
         </Stack>
       </AppShell.Navbar>
 
