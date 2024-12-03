@@ -1,6 +1,6 @@
-import { type FC } from "react";
-import { linkOptions } from "@tanstack/react-router";
 import { Badge, Button, Group, Paper, Stack, Text } from "@libs/ui";
+import { linkOptions } from "@tanstack/react-router";
+import type { FC } from "react";
 import { Navigation } from "../navigation";
 
 export interface CharacterListProps {

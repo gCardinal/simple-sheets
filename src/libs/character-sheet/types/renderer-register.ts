@@ -1,4 +1,4 @@
-import { type Renderer } from "./renderer";
+import type { Renderer } from "./renderer";
 
 /**
  * Simple object containing the information required to load a renderer. This allows

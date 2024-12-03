@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
+import { createRegistrar } from "./create-registrar";
 import { createSystemLoader } from "./create-system-loader";
 import { CharacterSheetException } from "./exceptions";
 import {
@@ -6,7 +7,6 @@ import {
   systemFactory,
   systemRegisterFactory,
 } from "./tests";
-import { createRegistrar } from "./create-registrar";
 
 describe("createSystemLoader()", () => {
   const systemSlug = "test-system";

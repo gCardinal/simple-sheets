@@ -1,10 +1,10 @@
-import { type FC } from "react";
-import { Input, Stack, Text } from "@libs/ui";
-import { type Control, Controller } from "react-hook-form";
-import {
-  type DndLegacyCharacterSheet,
-  type DndLegacySystem,
+import type {
+  DndLegacyCharacterSheet,
+  DndLegacySystem,
 } from "@libs/system-dnd-legacy";
+import { Input, Stack, Text } from "@libs/ui";
+import type { FC } from "react";
+import { type Control, Controller } from "react-hook-form";
 
 export interface AbilityScoresProps {
   system: DndLegacySystem;
@@ -25,8 +25,10 @@ export const AbilityScores: FC<AbilityScoresProps> = ({ system, control }) => {
               <Input
                 {...field}
                 onChange={(event) => {
-                  const newValue = parseInt(event.target.value, 10);
-                  field.onChange(isNaN(newValue) ? field.value : newValue);
+                  const newValue = Number.parseInt(event.target.value, 10);
+                  field.onChange(
+                    Number.isNaN(newValue) ? field.value : newValue,
+                  );
                 }}
               />
               <Text>{system.formulas.abilityScoreModifiers(field.value)}</Text>

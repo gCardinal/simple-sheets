@@ -1,12 +1,12 @@
+import { System } from "@libs/character-sheet";
 import {
+  type Infer,
   array,
   assign,
-  type Infer,
-  object,
   func,
+  object,
   string,
 } from "@libs/validation";
-import { System } from "@libs/character-sheet";
 
 export const DndLegacySystem = assign(
   System,

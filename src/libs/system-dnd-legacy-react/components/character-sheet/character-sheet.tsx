@@ -1,14 +1,14 @@
-import { type FC } from "react";
+import { superstructResolver } from "@hookform/resolvers/superstruct";
+import type { DataBridge } from "@libs/character-sheet";
 import {
   DndLegacyCharacterSheet,
   type DndLegacySystem,
 } from "@libs/system-dnd-legacy";
-import { type DataBridge } from "@libs/character-sheet";
-import { SheetHeader } from "../sheet-header";
-import { AbilityScores } from "../ability-scores";
-import { useForm } from "react-hook-form";
-import { superstructResolver } from "@hookform/resolvers/superstruct";
 import { Button } from "@libs/ui";
+import type { FC } from "react";
+import { useForm } from "react-hook-form";
+import { AbilityScores } from "../ability-scores";
+import { SheetHeader } from "../sheet-header";
 
 export interface CharacterSheetProps {
   sheet: DndLegacyCharacterSheet;

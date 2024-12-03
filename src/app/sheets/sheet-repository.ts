@@ -1,7 +1,7 @@
-import { db } from "../db";
 import { CharacterSheet } from "@libs/character-sheet";
+import type { Repository } from "@libs/database";
 import { assert } from "@libs/validation";
-import { type Repository } from "@libs/database";
+import { db } from "../db";
 
 export const sheetRepository: Repository<CharacterSheet> = {
   async create(character: unknown): Promise<string> {

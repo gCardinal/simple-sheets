@@ -1,4 +1,4 @@
-import { type Infer, number, type, string } from "@libs/validation";
+import { type Infer, number, string, type } from "@libs/validation";
 
 /**
  * A system is the object used to define a system for character sheets. This

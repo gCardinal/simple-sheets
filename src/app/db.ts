@@ -1,5 +1,5 @@
-import { type CharacterSheet } from "@libs/character-sheet";
-import { createConnection, type EntityTable } from "@libs/database";
+import type { CharacterSheet } from "@libs/character-sheet";
+import { type EntityTable, createConnection } from "@libs/database";
 
 export const db = createConnection<{
   sheets: EntityTable<CharacterSheet, "id">;

@@ -1,6 +1,6 @@
-import { type FC, type PropsWithChildren } from "react";
-import { Link, type LinkProps } from "@tanstack/react-router";
 import { NavLink } from "@libs/ui";
+import { Link, type LinkProps } from "@tanstack/react-router";
+import type { FC, PropsWithChildren } from "react";
 
 export interface NavigationProps extends PropsWithChildren {
   onClick?: () => void | Promise<void>;

@@ -1,6 +1,6 @@
+import { validate } from "@libs/validation";
 import { describe, expect, it } from "vitest";
 import { CharacterSheet } from "./character-sheet";
-import { validate } from "@libs/validation";
 
 describe("CharacterSheet", () => {
   it("should validate", () => {

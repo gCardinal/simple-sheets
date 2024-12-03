@@ -1,9 +1,9 @@
-import {
-  type Registrar,
-  type RendererLoader,
-  type SystemLoader,
+import type {
+  Registrar,
+  RendererLoader,
+  SystemLoader,
 } from "@libs/character-sheet";
-import { type sheetRepository } from "../sheets";
+import type { sheetRepository } from "../sheets";
 
 export interface RouterContext {
   systemLoader: SystemLoader;

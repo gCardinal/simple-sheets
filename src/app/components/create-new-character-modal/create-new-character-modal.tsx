@@ -1,10 +1,10 @@
-import { type FC } from "react";
 import { Button, Group, Modal, Select, Stack, TextInput } from "@libs/ui";
+import type { FC } from "react";
+import { Controller } from "react-hook-form";
 import {
   type CreateNewCharacterFormData,
   useCreateNewCharacterForm,
 } from "../../forms";
-import { Controller } from "react-hook-form";
 
 export interface CreateNewCharacterModalProps {
   isOpen: boolean;

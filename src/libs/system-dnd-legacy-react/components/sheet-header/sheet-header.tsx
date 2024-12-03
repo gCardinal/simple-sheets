@@ -1,8 +1,8 @@
-import { type FC } from "react";
+import type { DndLegacyCharacterSheet } from "@libs/system-dnd-legacy";
 import { Group, TextInput } from "@libs/ui";
+import type { FC } from "react";
+import type { UseFormRegister } from "react-hook-form";
 import { Logo } from "../logo";
-import { type UseFormRegister } from "react-hook-form";
-import { type DndLegacyCharacterSheet } from "@libs/system-dnd-legacy";
 
 export interface SheetHeaderProps {
   register: UseFormRegister<DndLegacyCharacterSheet>;

@@ -1,5 +1,5 @@
-import { type CharacterSheet } from "@libs/character-sheet";
-import { type DarkenedSkiesSystem } from "@libs/system-darkened-skies";
+import type { CharacterSheet } from "@libs/character-sheet";
+import type { DarkenedSkiesSystem } from "@libs/system-darkened-skies";
 
 export const render = (
   character: CharacterSheet,

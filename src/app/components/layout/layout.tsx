@@ -1,10 +1,10 @@
-import { useDisclosure } from "@mantine/hooks";
+import { config } from "@libs/config";
 import { AppShell, Burger, Container, Group, Stack, Text } from "@libs/ui";
-import { Navigation } from "../navigation";
+import { useDisclosure } from "@mantine/hooks";
 import { Outlet, useChildMatches } from "@tanstack/react-router";
 import { type FC, Suspense } from "react";
 import { TanStackRouterDevtools } from "../../routing";
-import { config } from "@libs/config";
+import { Navigation } from "../navigation";
 
 export const Layout: FC = () => {
   const [opened, { toggle }] = useDisclosure();

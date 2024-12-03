@@ -1,5 +1,5 @@
-import type { RendererRegister, SystemRegister } from "./types";
 import { CharacterSheetException } from "./exceptions";
+import type { RendererRegister, SystemRegister } from "./types";
 
 const validateRegistries = (
   registries: [SystemRegister, RendererRegister][],

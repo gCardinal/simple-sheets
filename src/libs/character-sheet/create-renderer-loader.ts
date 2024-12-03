@@ -1,5 +1,5 @@
-import { type Renderer } from "./types";
 import type { Registrar } from "./create-registrar";
+import type { Renderer } from "./types";
 
 /**
  * Lazy loads renderers and caches them in memory.

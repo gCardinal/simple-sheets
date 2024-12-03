@@ -1,7 +1,7 @@
-import { describe, expect, it } from "vitest";
-import { rendererRegisterFactory, systemRegisterFactory } from "./tests";
-import { createRegistrar } from "./create-registrar";
 import { CharacterSheetException } from "@libs/character-sheet/exceptions.ts";
+import { describe, expect, it } from "vitest";
+import { createRegistrar } from "./create-registrar";
+import { rendererRegisterFactory, systemRegisterFactory } from "./tests";
 
 describe("createRegistrar()", () => {
   it("should validate mapped systems and renderers are version compatible", () => {

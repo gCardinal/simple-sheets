@@ -1,4 +1,4 @@
-import { type Renderer } from "@libs/character-sheet";
+import type { Renderer } from "@libs/character-sheet";
 import {
   DndLegacyCharacterSheet,
   DndLegacySystem,

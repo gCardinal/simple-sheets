@@ -1,4 +1,4 @@
-import { type DarkenedSkiesSystem } from "./system";
+import type { DarkenedSkiesSystem } from "./system";
 
 console.log("Darkened Skies system loaded");
 

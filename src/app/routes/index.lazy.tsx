@@ -1,13 +1,13 @@
+import { Button, Stack } from "@libs/ui";
+import { useDisclosure } from "@mantine/hooks";
 import {
   createLazyFileRoute,
   useNavigate,
   useRouteContext,
 } from "@tanstack/react-router";
-import { Button, Stack } from "@libs/ui";
-import { useCreateNewSheet, useDeleteSheet, useGetAllSheets } from "../sheets";
 import { CharacterList, CreateNewCharacterModal } from "../components";
-import { type CreateNewCharacterFormData } from "../forms";
-import { useDisclosure } from "@mantine/hooks";
+import type { CreateNewCharacterFormData } from "../forms";
+import { useCreateNewSheet, useDeleteSheet, useGetAllSheets } from "../sheets";
 
 export const Route = createLazyFileRoute("/")({
   component: Index,

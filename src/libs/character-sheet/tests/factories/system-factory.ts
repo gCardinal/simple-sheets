@@ -1,6 +1,6 @@
-import { Factory } from "fishery";
-import { type System } from "../../models";
 import { faker } from "@faker-js/faker";
+import { Factory } from "fishery";
+import type { System } from "../../models";
 
 export const systemFactory = Factory.define<System>(() => ({
   name: faker.word.noun(),

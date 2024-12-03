@@ -1,6 +1,6 @@
-import { useForm } from "react-hook-form";
 import { superstructResolver } from "@hookform/resolvers/superstruct";
 import { object, string } from "@libs/validation";
+import { useForm } from "react-hook-form";
 
 export type CreateNewCharacterFormData = {
   name: string;

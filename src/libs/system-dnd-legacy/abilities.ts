@@ -1,4 +1,4 @@
-import { type Ability } from "./types";
+import type { Ability } from "./types";
 
 export const strengthAbility: Ability = { name: "Strength", shortName: "str" };
 export const dexterityAbility: Ability = {

@@ -1,7 +1,7 @@
-import { Factory } from "fishery";
-import { type SystemRegister } from "../../types";
-import { vi } from "vitest";
 import { faker } from "@faker-js/faker";
+import { Factory } from "fishery";
+import { vi } from "vitest";
+import type { SystemRegister } from "../../types";
 
 export const systemRegisterFactory = Factory.define<SystemRegister>(() => ({
   name: faker.word.noun(),

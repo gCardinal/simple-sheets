@@ -1,4 +1,4 @@
-import { type, string, type Infer } from "@libs/validation";
+import { type Infer, string, type } from "@libs/validation";
 
 /**
  * Base interface for a character. Systems should extend this interface

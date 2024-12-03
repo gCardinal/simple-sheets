@@ -1,5 +1,5 @@
-import { type CharacterSheet, type System } from "../models";
-import { type DataBridge } from "./data-bridge";
+import type { CharacterSheet, System } from "../models";
+import type { DataBridge } from "./data-bridge";
 
 /**
  * A renderer is the object used to render a character sheet. It contains

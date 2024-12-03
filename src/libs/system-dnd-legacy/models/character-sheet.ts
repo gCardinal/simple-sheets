@@ -1,17 +1,17 @@
 import { CharacterSheet } from "@libs/character-sheet";
+import { abilities } from "@libs/system-dnd-legacy/abilities.ts";
+import { skills } from "@libs/system-dnd-legacy/skills.ts";
 import {
+  type Infer,
   assign,
   boolean,
   defaulted,
-  type Infer,
   number,
   object,
   optional,
   record,
   string,
 } from "@libs/validation";
-import { abilities } from "@libs/system-dnd-legacy/abilities.ts";
-import { skills } from "@libs/system-dnd-legacy/skills.ts";
 
 export const DndLegacyCharacterSheet = assign(
   CharacterSheet,
@@ -20,10 +20,11 @@ export const DndLegacyCharacterSheet = assign(
     proficiencyBonus: defaulted(number(), 2),
     abilityScores: defaulted(
       record(string(), number()),
-      abilities.reduce(
-        (acc, { shortName }) => ({ ...acc, [shortName]: 8 }),
-        {},
-      ),
+      abilities.reduce<Record<string, number>>((acc, { shortName }) => {
+        acc[shortName] = 8;
+
+        return acc;
+      }, {}),
     ),
     skills: defaulted(
       record(
@@ -33,11 +34,12 @@ export const DndLegacyCharacterSheet = assign(
           score: number(),
         }),
       ),
-      skills.reduce(
-        (acc, { shortName }) => ({
-          ...acc,
-          [shortName]: { proficiency: false, score: 0 },
-        }),
+      skills.reduce<Record<string, { proficiency: boolean; score: number }>>(
+        (acc, { shortName }) => {
+          acc[shortName] = { proficiency: false, score: 0 };
+
+          return acc;
+        },
         {},
       ),
     ),

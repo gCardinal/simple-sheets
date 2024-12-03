@@ -1,5 +1,5 @@
-import { type System } from "./models";
-import { type Registrar } from "./create-registrar";
+import type { Registrar } from "./create-registrar";
+import type { System } from "./models";
 
 /**
  * Lazy loads systems and caches them in memory.

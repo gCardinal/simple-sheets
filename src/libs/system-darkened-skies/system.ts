@@ -1,4 +1,4 @@
-import { type System } from "@libs/character-sheet";
+import type { System } from "@libs/character-sheet";
 
 export interface Condition {
   name: string;

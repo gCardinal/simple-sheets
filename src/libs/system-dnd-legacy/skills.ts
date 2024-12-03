@@ -1,5 +1,5 @@
-import { type Skill } from "./types";
 import { dexterityAbility } from "./abilities";
+import type { Skill } from "./types";
 
 export const skills: Skill[] = [
   {

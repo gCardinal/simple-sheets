@@ -1,4 +1,4 @@
-import { type CharacterSheet } from "../models";
+import type { CharacterSheet } from "../models";
 
 /**
  * Bridge to facilitate communication between the renderer and

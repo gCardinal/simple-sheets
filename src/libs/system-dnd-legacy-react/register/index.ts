@@ -1,4 +1,4 @@
-import { type RendererRegister } from "@libs/character-sheet";
+import type { RendererRegister } from "@libs/character-sheet";
 
 export const register = (): RendererRegister => {
   console.debug("D&D 5e (Legacy) renderer registered");

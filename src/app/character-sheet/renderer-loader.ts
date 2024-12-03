@@ -1,6 +1,6 @@
 import {
-  createRendererLoader,
   type RendererLoader,
+  createRendererLoader,
 } from "@libs/character-sheet";
 import { registrar } from "./registrar.ts";
 
