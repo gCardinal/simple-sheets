@@ -1,5 +1,4 @@
-character-sheet
-===
+# character-sheet
 
 **Preface**: I hate the name, but can't think of a better one.
 Suggestions are welcome.

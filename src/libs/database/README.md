@@ -1,5 +1,4 @@
-database
-===
+# database
 
 Library to create a connection to a database. Under the hood,
 Dexie.js is used to create a connection to IndexedDB, but for

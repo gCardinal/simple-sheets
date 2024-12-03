@@ -1,5 +1,4 @@
-validation
-===
+# validation
 
 Surprise, surprise! Thin abstraction over validation lib. Though,
 this one I'm not sure makes sense. `superstruct` is function based,
